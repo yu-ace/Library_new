@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>deposit</title>
+    <script src="/jquery-3.6.1.min(1).js"></script>
+    <script>
+        function getUserDeposit(){
+            let a = $(".userId")
+            for(let i = 0;i < a.length;i++){
+                let aa = a[i];
+                let url = "/deposit2?userId="+aa.textContent;
+                $.get(url,function (data,status){
+                    if(status == "success"){
+                        let d = data["deposit"];
+                        let b = data["borrowBookPrice"];
+                        aa.textContent = d - b;
+                    }else{
+                        console.log("error");
+                    }
+                })
+                console.log(a.textContent);
+            }
+        }
+    </script>
+</head>
+
+<body onload="getUserDeposit()">
+<div id="header" style="background-color:#33CCCC;">
+    <h1 style="margin-bottom:0;text-align:center">欢迎来到图书管理系统</h1></div>
+<div th:insert="commons::fragment-name"></div>
+
+<div id="content" style="background-color:#E0FFFF;height:1000px;width:80%;float:left;">
+    <h2>押金</h2>
+    <p th:text="${tip}"></p>
+
+    <form action="/addDeposit" method="post">
+        <div>
+            <label>
+                请输入充值金额
+                <input type="number" name="add">
+            </label>
+        </div>
+        <div>
+            <label>
+                请输入用户id
+                <input type="number" name="id">
+            </label>
+        </div>
+        <div>
+            <input type="submit" value="确定">
+        </div>
+    </form>
+
+    <form action="/cutDeposit" method="post">
+        <div>
+            <label>
+                请输入提取金额
+                <input type="number" name="cut">
+            </label>
+        </div>
+        <div>
+            <label>
+                请输入用户id
+                <input type="number" name="id">
+            </label>
+        </div>
+        <div>
+            <input type="submit" value="确定">
+        </div>
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>id</th>
+            <th>用户名</th>
+            <th>已借图书金额</th>
+            <th>押金</th>
+            <th>剩余押金</th>
+        </tr>
+        <tr th:each="m:${user}">
+            <td th:text="${m.id}"></td>
+            <td th:text="${m.name}"></td>
+            <td th:text="${m.borrowBookPrice}"></td>
+            <td th:text="${m.deposit}"></td>
+            <td class="userId" th:text="${m.id}"></td>
+        </tr>
+    </table>
+
+    <h2>押金记录</h2>
+    <table border="1">
+        <tr>
+            <th>id</th>
+            <th>用户名</th>
+            <th>动作</th>
+            <th>金额</th>
+            <th>时间</th>
+        </tr>
+        <tr th:each="m:${depositHistory}">
+            <td th:text="${m.id}"></td>
+            <td th:text="${m.userId}"></td>
+            <td th:text="${m.type}"></td>
+            <td th:text="${m.price}"></td>
+            <td th:text="${m.time}"></td>
+        </tr>
+    </table>
+    <form action="/depositByPage" method="post">
+        <div>
+            <label>
+                请选择页数<select name="number">
+                <option value="0">1</option>
+                <option value="1">2</option>
+                <option value="2">3</option>
+                <option value="3">4</option>
+                <option value="4">5</option>
+                <option value="5">6</option>
+            </select>
+            </label>
+            <input type="submit" value="确定">
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

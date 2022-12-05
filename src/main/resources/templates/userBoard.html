@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>readerBoard</title>
+</head>
+
+<body>
+<div id="header" style="background-color:#33CCCC;">
+  <h1 style="margin-bottom:0;text-align:center">欢迎来到图书管理系统</h1></div>
+
+<div th:insert="commons::fragment-name"></div>
+
+<div id="content" style="background-color:#E0FFFF;height:1000px;width:80%;float:left;">
+  <h2>欢迎<span th:text="${user.name}"></span>登陆,请选择您需要查看的内容</h2>
+
+
+</div>
+</body>
+</html>

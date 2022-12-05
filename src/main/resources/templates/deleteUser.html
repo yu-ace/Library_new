@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>deleteUser</title>
+</head>
+
+<body>
+<div id="container" style="width:1800px">
+
+    <div id="header" style="background-color:#33CCCC;">
+        <h1 style="margin-bottom:0;text-align:center">欢迎来到图书管理系统</h1></div>
+
+    <div th:insert="commons::fragment-name"></div>
+
+    <div id="content" style="background-color:#E0FFFF;height:1000px;width:80%;float:left;">
+        <h2>删除用户</h2>
+        <p th:text="${tip}"></p>
+        <form action="/deleteUser"  method="post">
+            <div>
+                <label>
+                    输入用户id<input type="number" name="id">
+                </label>
+            </div>
+            <div>
+                <label>
+                    密 码<input type="password" name="password">
+                </label>
+            </div>
+            <div>
+                <input type="submit" value="提交">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+

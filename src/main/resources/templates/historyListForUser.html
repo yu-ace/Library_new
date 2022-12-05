@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>historyListForUser</title>
+
+  <script src="/jquery-3.6.1.min(1).js"></script>
+  <script>
+    function getBookName(){
+      let aa = $(".bookId");
+      for(let i = 0;i < aa.length;i++){
+        let a = aa[i];
+        let url = "/book?bookId="+a.textContent;
+        $.get(url,function (data,status){
+          if(status == "success"){
+            a.textContent = data["name"];
+          }else{
+            console.log("error");
+          }
+        })
+        console.log(a.textContent);
+      }
+    }
+  </script>
+
+  <script>
+    function getUserById(){
+      let bb = $(".userId");
+      for(let i = 0;i < bb.length;i++){
+        let b = bb[i];
+        let url = "/user?userId="+b.textContent;
+        $.get(url,function (data,status){
+          if(status == "success"){
+            b.textContent = data["name"];
+          }else{
+            console.log("error")
+          }
+        })
+        console.log(b.textContent);
+      }
+    }
+  </script>
+</head>
+
+<body onload="getBookName();getUserById()">
+<div id="header" style="background-color:#33CCCC;">
+  <h1 style="margin-bottom:0;text-align:center">欢迎来到图书借阅系统</h1></div>
+<div th:insert="commons::fragment-name"></div>
+
+<div id="content" style="background-color:#E0FFFF;height:1000px;width:80%;float:left;">
+  <h2>借阅列表</h2>
+  <p th:text="${tip}"></p>
+
+  <form action="/historyForUserByUserId" method="post">
+    <div>
+      <label>
+        请输入用户id
+        <input type="number" name="id">
+      </label>
+    </div>
+    <div>
+      <label>
+        请选择页数<select name="number">
+        <option value="0">1</option>
+        <option value="1">2</option>
+      </select>
+      </label>
+      <input type="submit" value="确定">
+    </div>
+  </form>
+
+  <form action="/historyForUserByBookId" method="post">
+    <div>
+      <label>
+        请输入书本id
+        <input type="number" name="id">
+      </label>
+    </div>
+    <div>
+      <label>
+        请选择页数<select name="number">
+        <option value="0">1</option>
+        <option value="1">2</option>
+      </select>
+      </label>
+      <input type="submit" value="确定">
+    </div>
+  </form>
+
+  <form action="/historyListForUserByType" method="post">
+    <div>
+      <label>
+        请输入借取类型
+        <select name="type">
+          <option value="上架" selected>上架</option>
+          <option value="借取">借取</option>
+          <option value="归还">归还</option>
+        </select>
+      </label>
+    </div>
+    <div>
+      <label>
+        请选择页数<select name="number">
+        <option value="0">1</option>
+        <option value="1">2</option>
+      </select>
+      </label>
+      <input type="submit" value="确定">
+    </div>
+  </form>
+
+  <table border="1">
+    <tr>
+      <th>id</th>
+      <th>用户名称</th>
+      <th>书名</th>
+      <th>动作类型</th>
+      <th>数量</th>
+      <th>日期</th>
+    </tr>
+    <tr th:each="m:${historyList}">
+      <td th:text="${m.id}"></td>
+      <td class="userId" th:text="${m.userId}"></td>
+      <td class="bookId" th:text="${m.bookId}"></td>
+      <td th:text="${m.type}"></td>
+      <td th:text="${m.count}"></td>
+      <td th:text="${m.time}"></td>
+    </tr>
+  </table>
+
+  <form action="/historyListForUserByPage" method="post">
+    <div>
+      <label>
+        请选择页数<select name="number">
+        <option value="0">1</option>
+        <option value="1">2</option>
+        <option value="2">3</option>
+      </select>
+      </label>
+      <input type="submit" value="确定">
+    </div>
+
+  </form>
+</div>
+</body>
+</html>

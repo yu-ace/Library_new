@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>newBook</title>
+</head>
+
+<body>
+<div id="header" style="background-color:#33CCCC;">
+  <h1 style="margin-bottom:0;text-align:center">欢迎来到图书管理系统</h1></div>
+
+<div th:insert="commons::fragment-name"></div>
+
+<div id="content" style="background-color:#E0FFFF;height:1000px;width:80%;float:left;">
+  <h2>上架新书</h2>
+  <p th:text="${tip}"></p>
+  <form action="/newBook" method="post">
+  <div>
+    <label>
+      请输入书名
+      <input type="text" name="name">
+    </label>
+  </div>
+    <div>
+      <label>
+        请输入价格
+        <input type="number" name="price">
+      </label>
+    </div>
+    <div>
+      <label>
+        请输入作者
+        <input type="text" name="author">
+      </label>
+    </div>
+    <div>
+      <label>
+        请输入数量
+        <input type="number" name="count">
+      </label>
+    </div>
+    <div>
+      <label>
+        请选择书本类形
+        <select name="categoryId">
+          <option value="1">文学</option>
+          <option value="2">武侠</option>
+          <option value="3" selected>科幻</option>
+          <option value="4">动漫</option>
+          <option value="5">游戏</option>
+        </select>
+      </label>
+    </div>
+    <div>
+      <label>
+        <input type="submit" value="确定">
+      </label>
+    </div>
+
+
+  </form>
+</div>
+</body>
+</html>
